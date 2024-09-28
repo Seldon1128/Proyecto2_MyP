@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "a+n3+p4bt7c=",
+  "success": true,
+  "projectFilePath": "/Users/seldonsauttoramirez/Desktop/Proyecto2_MyP/MusicDB/MusicDB.csproj",
+  "expectedPackageFiles": [
+    "/Users/seldonsauttoramirez/.nuget/packages/taglibsharp/2.2.0/taglibsharp.2.2.0.nupkg.sha512"
+  ],
+  "logs": []
+}
