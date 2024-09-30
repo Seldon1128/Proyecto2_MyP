@@ -1,9 +1,16 @@
 {
   "version": 2,
-  "dgSpecHash": "a+n3+p4bt7c=",
+  "dgSpecHash": "3H6uq0p4PRw=",
   "success": true,
   "projectFilePath": "/Users/seldonsauttoramirez/Desktop/Proyecto2_MyP/MusicDB/MusicDB.csproj",
   "expectedPackageFiles": [
+    "/Users/seldonsauttoramirez/.nuget/packages/microsoft.data.sqlite/8.0.8/microsoft.data.sqlite.8.0.8.nupkg.sha512",
+    "/Users/seldonsauttoramirez/.nuget/packages/microsoft.data.sqlite.core/8.0.8/microsoft.data.sqlite.core.8.0.8.nupkg.sha512",
+    "/Users/seldonsauttoramirez/.nuget/packages/sqlitepclraw.bundle_e_sqlite3/2.1.6/sqlitepclraw.bundle_e_sqlite3.2.1.6.nupkg.sha512",
+    "/Users/seldonsauttoramirez/.nuget/packages/sqlitepclraw.core/2.1.6/sqlitepclraw.core.2.1.6.nupkg.sha512",
+    "/Users/seldonsauttoramirez/.nuget/packages/sqlitepclraw.lib.e_sqlite3/2.1.6/sqlitepclraw.lib.e_sqlite3.2.1.6.nupkg.sha512",
+    "/Users/seldonsauttoramirez/.nuget/packages/sqlitepclraw.provider.e_sqlite3/2.1.6/sqlitepclraw.provider.e_sqlite3.2.1.6.nupkg.sha512",
+    "/Users/seldonsauttoramirez/.nuget/packages/system.memory/4.5.3/system.memory.4.5.3.nupkg.sha512",
     "/Users/seldonsauttoramirez/.nuget/packages/taglibsharp/2.2.0/taglibsharp.2.2.0.nupkg.sha512"
   ],
   "logs": []

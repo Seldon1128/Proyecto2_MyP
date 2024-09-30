@@ -4,10 +4,18 @@ class Program
 {
     static void Main()
     {
-        Console.WriteLine("Hello, 1 try");
+        Console.WriteLine("Iniciando el programa");
+
+        // Ruta a la base de datos
+        string databasePath = "musica.db";
+
+        // Crear el DatabaseManager y las tablas
+        DatabaseManager dbManager = new DatabaseManager(databasePath);
+
+        // Crear el DAO y pasarle la conexión
+        MusicDAO musicDAO = new MusicDAO(dbManager.GetConnection()); 
 
         // Directorio donde se encuentran los MP3
-        //string musicDirectory = "/Macintosh HD/Usuarios/seldonsauttoramirez/Documentos/PyM/Canciones mama";
         string musicDirectory = "/Users/seldonsauttoramirez/Documents/PyM/Canciones mama"; // Verifica esta línea
 
 
@@ -19,10 +27,13 @@ class Program
 
 
         MP3TagExtractor tagExtractor = new MP3TagExtractor();
-        DirectoryMiner miner = new DirectoryMiner(tagExtractor);
+        DirectoryMiner miner = new DirectoryMiner(tagExtractor, musicDAO);
 
         // Recorrer el directorio y procesar los archivos MP3
         miner.TraverseDirectory(musicDirectory);
+
+        // Cerrar la conexión a la base de datos
+        dbManager.CloseConnection();
 
         Console.WriteLine("Proceso completado.");
 
