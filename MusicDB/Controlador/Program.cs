@@ -1,4 +1,6 @@
 using System;
+using Gtk;
+
 
 class Program
 {
@@ -17,6 +19,8 @@ class Program
 
         // Directorio donde se encuentran los MP3
         string musicDirectory = "/Users/seldonsauttoramirez/Documents/PyM/Canciones mama"; // Verifica esta línea
+        
+
 
 
         Console.WriteLine($"Attempting to access: {musicDirectory}");
@@ -37,5 +41,9 @@ class Program
 
         Console.WriteLine("Proceso completado.");
 
+        Application.Init();
+        MainWindow win = new MainWindow();
+        win.Show();
+        Application.Run();
     }
 }

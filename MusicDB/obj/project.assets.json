@@ -2,6 +2,83 @@
   "version": 3,
   "targets": {
     "net6.0": {
+      "AtkSharp/3.24.24.4": {
+        "type": "package",
+        "dependencies": {
+          "GLibSharp": "3.24.24.4"
+        },
+        "compile": {
+          "lib/netstandard2.0/AtkSharp.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/AtkSharp.dll": {}
+        }
+      },
+      "CairoSharp/3.24.24.4": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/CairoSharp.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/CairoSharp.dll": {}
+        }
+      },
+      "GdkSharp/3.24.24.4": {
+        "type": "package",
+        "dependencies": {
+          "CairoSharp": "3.24.24.4",
+          "GLibSharp": "3.24.24.4",
+          "GioSharp": "3.24.24.4",
+          "PangoSharp": "3.24.24.4"
+        },
+        "compile": {
+          "lib/netstandard2.0/GdkSharp.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/GdkSharp.dll": {}
+        }
+      },
+      "GioSharp/3.24.24.4": {
+        "type": "package",
+        "dependencies": {
+          "GLibSharp": "3.24.24.4"
+        },
+        "compile": {
+          "lib/netstandard2.0/GioSharp.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/GioSharp.dll": {}
+        }
+      },
+      "GLibSharp/3.24.24.4": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/GLibSharp.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/GLibSharp.dll": {}
+        }
+      },
+      "GtkSharp/3.24.24.4": {
+        "type": "package",
+        "dependencies": {
+          "AtkSharp": "3.24.24.4",
+          "CairoSharp": "3.24.24.4",
+          "GLibSharp": "3.24.24.4",
+          "GdkSharp": "3.24.24.4",
+          "GioSharp": "3.24.24.4",
+          "PangoSharp": "3.24.24.4"
+        },
+        "compile": {
+          "lib/netstandard2.0/GtkSharp.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/GtkSharp.dll": {}
+        },
+        "build": {
+          "build/GtkSharp.targets": {}
+        }
+      },
       "Microsoft.Data.Sqlite/8.0.8": {
         "type": "package",
         "dependencies": {
@@ -29,6 +106,19 @@
           "lib/net6.0/Microsoft.Data.Sqlite.dll": {
             "related": ".xml"
           }
+        }
+      },
+      "PangoSharp/3.24.24.4": {
+        "type": "package",
+        "dependencies": {
+          "CairoSharp": "3.24.24.4",
+          "GLibSharp": "3.24.24.4"
+        },
+        "compile": {
+          "lib/netstandard2.0/PangoSharp.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/PangoSharp.dll": {}
         }
       },
       "SQLitePCLRaw.bundle_e_sqlite3/2.1.6": {
@@ -184,9 +274,277 @@
           }
         }
       }
+    },
+    "net6.0/osx-x64": {
+      "AtkSharp/3.24.24.4": {
+        "type": "package",
+        "dependencies": {
+          "GLibSharp": "3.24.24.4"
+        },
+        "compile": {
+          "lib/netstandard2.0/AtkSharp.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/AtkSharp.dll": {}
+        }
+      },
+      "CairoSharp/3.24.24.4": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/CairoSharp.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/CairoSharp.dll": {}
+        }
+      },
+      "GdkSharp/3.24.24.4": {
+        "type": "package",
+        "dependencies": {
+          "CairoSharp": "3.24.24.4",
+          "GLibSharp": "3.24.24.4",
+          "GioSharp": "3.24.24.4",
+          "PangoSharp": "3.24.24.4"
+        },
+        "compile": {
+          "lib/netstandard2.0/GdkSharp.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/GdkSharp.dll": {}
+        }
+      },
+      "GioSharp/3.24.24.4": {
+        "type": "package",
+        "dependencies": {
+          "GLibSharp": "3.24.24.4"
+        },
+        "compile": {
+          "lib/netstandard2.0/GioSharp.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/GioSharp.dll": {}
+        }
+      },
+      "GLibSharp/3.24.24.4": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/GLibSharp.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/GLibSharp.dll": {}
+        }
+      },
+      "GtkSharp/3.24.24.4": {
+        "type": "package",
+        "dependencies": {
+          "AtkSharp": "3.24.24.4",
+          "CairoSharp": "3.24.24.4",
+          "GLibSharp": "3.24.24.4",
+          "GdkSharp": "3.24.24.4",
+          "GioSharp": "3.24.24.4",
+          "PangoSharp": "3.24.24.4"
+        },
+        "compile": {
+          "lib/netstandard2.0/GtkSharp.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/GtkSharp.dll": {}
+        },
+        "build": {
+          "build/GtkSharp.targets": {}
+        }
+      },
+      "Microsoft.Data.Sqlite/8.0.8": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Data.Sqlite.Core": "8.0.8",
+          "SQLitePCLRaw.bundle_e_sqlite3": "2.1.6"
+        },
+        "compile": {
+          "lib/netstandard2.0/_._": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/_._": {}
+        }
+      },
+      "Microsoft.Data.Sqlite.Core/8.0.8": {
+        "type": "package",
+        "dependencies": {
+          "SQLitePCLRaw.core": "2.1.6"
+        },
+        "compile": {
+          "lib/net6.0/Microsoft.Data.Sqlite.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/Microsoft.Data.Sqlite.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "PangoSharp/3.24.24.4": {
+        "type": "package",
+        "dependencies": {
+          "CairoSharp": "3.24.24.4",
+          "GLibSharp": "3.24.24.4"
+        },
+        "compile": {
+          "lib/netstandard2.0/PangoSharp.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/PangoSharp.dll": {}
+        }
+      },
+      "SQLitePCLRaw.bundle_e_sqlite3/2.1.6": {
+        "type": "package",
+        "dependencies": {
+          "SQLitePCLRaw.lib.e_sqlite3": "2.1.6",
+          "SQLitePCLRaw.provider.e_sqlite3": "2.1.6"
+        },
+        "compile": {
+          "lib/netstandard2.0/SQLitePCLRaw.batteries_v2.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/SQLitePCLRaw.batteries_v2.dll": {}
+        }
+      },
+      "SQLitePCLRaw.core/2.1.6": {
+        "type": "package",
+        "dependencies": {
+          "System.Memory": "4.5.3"
+        },
+        "compile": {
+          "lib/netstandard2.0/SQLitePCLRaw.core.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/SQLitePCLRaw.core.dll": {}
+        }
+      },
+      "SQLitePCLRaw.lib.e_sqlite3/2.1.6": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/_._": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/_._": {}
+        },
+        "native": {
+          "runtimes/osx-x64/native/libe_sqlite3.dylib": {}
+        },
+        "build": {
+          "buildTransitive/net6.0/SQLitePCLRaw.lib.e_sqlite3.targets": {}
+        }
+      },
+      "SQLitePCLRaw.provider.e_sqlite3/2.1.6": {
+        "type": "package",
+        "dependencies": {
+          "SQLitePCLRaw.core": "2.1.6"
+        },
+        "compile": {
+          "lib/net6.0/SQLitePCLRaw.provider.e_sqlite3.dll": {}
+        },
+        "runtime": {
+          "lib/net6.0/SQLitePCLRaw.provider.e_sqlite3.dll": {}
+        }
+      },
+      "System.Memory/4.5.3": {
+        "type": "package",
+        "compile": {
+          "ref/netcoreapp2.1/_._": {}
+        },
+        "runtime": {
+          "lib/netcoreapp2.1/_._": {}
+        }
+      },
+      "TagLibSharp/2.2.0": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/TagLibSharp.dll": {
+            "related": ".pdb"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/TagLibSharp.dll": {
+            "related": ".pdb"
+          }
+        }
+      }
     }
   },
   "libraries": {
+    "AtkSharp/3.24.24.4": {
+      "sha512": "YG+hjAqdHRPxY7cCC9g2flroZuIaGhezrfP0qrpTnP4YhkhKX2JN7+70dn7/Z9SfceLj39h4nMNyVLArRHAsIw==",
+      "type": "package",
+      "path": "atksharp/3.24.24.4",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "atksharp.3.24.24.4.nupkg.sha512",
+        "atksharp.nuspec",
+        "lib/netstandard2.0/AtkSharp.dll"
+      ]
+    },
+    "CairoSharp/3.24.24.4": {
+      "sha512": "0DwpXEecAxdoTDwxClse5+nouQpWhvl4BYgm77EwvImsjMNw8iqWhETLVDFML7XzE+PEN6XnOliERw5kf2fkvA==",
+      "type": "package",
+      "path": "cairosharp/3.24.24.4",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "cairosharp.3.24.24.4.nupkg.sha512",
+        "cairosharp.nuspec",
+        "lib/netstandard2.0/CairoSharp.dll"
+      ]
+    },
+    "GdkSharp/3.24.24.4": {
+      "sha512": "ur75yp+TVud0vKfVfOd+iRROvOZmFU1z8PEew0AxsjwoJUKt0mjInesSuwTYe+BTuOemffcP1pPQ9FcJ/wkdag==",
+      "type": "package",
+      "path": "gdksharp/3.24.24.4",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "gdksharp.3.24.24.4.nupkg.sha512",
+        "gdksharp.nuspec",
+        "lib/netstandard2.0/GdkSharp.dll"
+      ]
+    },
+    "GioSharp/3.24.24.4": {
+      "sha512": "sPsUMVmiNNWIif5PyQ/BZZ5io44BW+EULLRkn0XXBLJhVr7HctMmTVRB6Qdbh6Ezxv20MgxUywynllHi5oTjBw==",
+      "type": "package",
+      "path": "giosharp/3.24.24.4",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "giosharp.3.24.24.4.nupkg.sha512",
+        "giosharp.nuspec",
+        "lib/netstandard2.0/GioSharp.dll"
+      ]
+    },
+    "GLibSharp/3.24.24.4": {
+      "sha512": "TFhUmU5R1UdycvAcphkAMaD2N1k7cFaw2Ih/TUHn5IQTetyo8++wtGKZXSdBd6CjdHpzDsxeYnCgPRK++m3TLQ==",
+      "type": "package",
+      "path": "glibsharp/3.24.24.4",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "glibsharp.3.24.24.4.nupkg.sha512",
+        "glibsharp.nuspec",
+        "lib/netstandard2.0/GLibSharp.dll"
+      ]
+    },
+    "GtkSharp/3.24.24.4": {
+      "sha512": "nwiPZ5xN2KeqY2pzuOPOXIXa/SERB+ijJIZiGPrUjPQNLFxnqUK/Nggwi4UQVw6cGhkBmDN2+pEqteZAvsy4Jw==",
+      "type": "package",
+      "path": "gtksharp/3.24.24.4",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "build/GtkSharp.targets",
+        "gtksharp.3.24.24.4.nupkg.sha512",
+        "gtksharp.nuspec",
+        "lib/netstandard2.0/GtkSharp.dll"
+      ]
+    },
     "Microsoft.Data.Sqlite/8.0.8": {
       "sha512": "Ao+kD9lZpZvvvfLHMR4/UviFGXaWhQ9AVT4fYMl62XWgIPuVIhZqLysmDNiXbsz6Pb87iyyElX2xSfigzKNZNg==",
       "type": "package",
@@ -218,6 +576,18 @@
         "lib/netstandard2.0/Microsoft.Data.Sqlite.xml",
         "microsoft.data.sqlite.core.8.0.8.nupkg.sha512",
         "microsoft.data.sqlite.core.nuspec"
+      ]
+    },
+    "PangoSharp/3.24.24.4": {
+      "sha512": "EbgUet41DSSIGR2j9GUOkRE3x3ehohyKdRnMH1LWf3cLUiXGd99TxTArd0Uq5IHaYQyignE/ol6W+1wAvWJiNw==",
+      "type": "package",
+      "path": "pangosharp/3.24.24.4",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.0/PangoSharp.dll",
+        "pangosharp.3.24.24.4.nupkg.sha512",
+        "pangosharp.nuspec"
       ]
     },
     "SQLitePCLRaw.bundle_e_sqlite3/2.1.6": {
@@ -350,6 +720,7 @@
   },
   "projectFileDependencyGroups": {
     "net6.0": [
+      "GtkSharp >= 3.24.24.4",
       "Microsoft.Data.Sqlite >= 8.0.8",
       "TagLibSharp >= 2.2.0"
     ]
@@ -396,6 +767,10 @@
       "net6.0": {
         "targetAlias": "net6.0",
         "dependencies": {
+          "GtkSharp": {
+            "target": "Package",
+            "version": "[3.24.24.4, )"
+          },
           "Microsoft.Data.Sqlite": {
             "target": "Package",
             "version": "[8.0.8, )"
@@ -416,12 +791,31 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Runtime.osx-x64",
+            "version": "[6.0.33, 6.0.33]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Host.osx-x64",
+            "version": "[6.0.33, 6.0.33]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Runtime.osx-x64",
+            "version": "[6.0.33, 6.0.33]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
           }
         },
         "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.402/RuntimeIdentifierGraph.json"
+      }
+    },
+    "runtimes": {
+      "osx-x64": {
+        "#import": []
       }
     }
   }
