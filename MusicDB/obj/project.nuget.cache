@@ -1,27 +1,27 @@
 {
   "version": 2,
-  "dgSpecHash": "QFYWm8Pon3A=",
+  "dgSpecHash": "josUOc7Hv8c=",
   "success": true,
   "projectFilePath": "/Users/seldonsauttoramirez/Desktop/Proyecto2_MyP/MusicDB/MusicDB.csproj",
   "expectedPackageFiles": [
-    "/Users/seldonsauttoramirez/.nuget/packages/atksharp/3.24.24.4/atksharp.3.24.24.4.nupkg.sha512",
-    "/Users/seldonsauttoramirez/.nuget/packages/cairosharp/3.24.24.4/cairosharp.3.24.24.4.nupkg.sha512",
-    "/Users/seldonsauttoramirez/.nuget/packages/gdksharp/3.24.24.4/gdksharp.3.24.24.4.nupkg.sha512",
-    "/Users/seldonsauttoramirez/.nuget/packages/giosharp/3.24.24.4/giosharp.3.24.24.4.nupkg.sha512",
-    "/Users/seldonsauttoramirez/.nuget/packages/glibsharp/3.24.24.4/glibsharp.3.24.24.4.nupkg.sha512",
-    "/Users/seldonsauttoramirez/.nuget/packages/gtksharp/3.24.24.4/gtksharp.3.24.24.4.nupkg.sha512",
+    "/Users/seldonsauttoramirez/.nuget/packages/atksharp/3.24.24.117-develop/atksharp.3.24.24.117-develop.nupkg.sha512",
+    "/Users/seldonsauttoramirez/.nuget/packages/cairosharp/3.24.24.117-develop/cairosharp.3.24.24.117-develop.nupkg.sha512",
+    "/Users/seldonsauttoramirez/.nuget/packages/gdksharp/3.24.24.117-develop/gdksharp.3.24.24.117-develop.nupkg.sha512",
+    "/Users/seldonsauttoramirez/.nuget/packages/giosharp/3.24.24.117-develop/giosharp.3.24.24.117-develop.nupkg.sha512",
+    "/Users/seldonsauttoramirez/.nuget/packages/glibsharp/3.24.24.117-develop/glibsharp.3.24.24.117-develop.nupkg.sha512",
+    "/Users/seldonsauttoramirez/.nuget/packages/gtksharp/3.24.24.117-develop/gtksharp.3.24.24.117-develop.nupkg.sha512",
     "/Users/seldonsauttoramirez/.nuget/packages/microsoft.data.sqlite/8.0.8/microsoft.data.sqlite.8.0.8.nupkg.sha512",
     "/Users/seldonsauttoramirez/.nuget/packages/microsoft.data.sqlite.core/8.0.8/microsoft.data.sqlite.core.8.0.8.nupkg.sha512",
-    "/Users/seldonsauttoramirez/.nuget/packages/pangosharp/3.24.24.4/pangosharp.3.24.24.4.nupkg.sha512",
+    "/Users/seldonsauttoramirez/.nuget/packages/pangosharp/3.24.24.117-develop/pangosharp.3.24.24.117-develop.nupkg.sha512",
     "/Users/seldonsauttoramirez/.nuget/packages/sqlitepclraw.bundle_e_sqlite3/2.1.6/sqlitepclraw.bundle_e_sqlite3.2.1.6.nupkg.sha512",
     "/Users/seldonsauttoramirez/.nuget/packages/sqlitepclraw.core/2.1.6/sqlitepclraw.core.2.1.6.nupkg.sha512",
     "/Users/seldonsauttoramirez/.nuget/packages/sqlitepclraw.lib.e_sqlite3/2.1.6/sqlitepclraw.lib.e_sqlite3.2.1.6.nupkg.sha512",
     "/Users/seldonsauttoramirez/.nuget/packages/sqlitepclraw.provider.e_sqlite3/2.1.6/sqlitepclraw.provider.e_sqlite3.2.1.6.nupkg.sha512",
     "/Users/seldonsauttoramirez/.nuget/packages/system.memory/4.5.3/system.memory.4.5.3.nupkg.sha512",
     "/Users/seldonsauttoramirez/.nuget/packages/taglibsharp/2.2.0/taglibsharp.2.2.0.nupkg.sha512",
-    "/Users/seldonsauttoramirez/.nuget/packages/microsoft.netcore.app.runtime.osx-x64/6.0.33/microsoft.netcore.app.runtime.osx-x64.6.0.33.nupkg.sha512",
-    "/Users/seldonsauttoramirez/.nuget/packages/microsoft.aspnetcore.app.runtime.osx-x64/6.0.33/microsoft.aspnetcore.app.runtime.osx-x64.6.0.33.nupkg.sha512",
-    "/Users/seldonsauttoramirez/.nuget/packages/microsoft.netcore.app.host.osx-x64/6.0.33/microsoft.netcore.app.host.osx-x64.6.0.33.nupkg.sha512"
+    "/Users/seldonsauttoramirez/.nuget/packages/microsoft.aspnetcore.app.runtime.osx-x64/8.0.8/microsoft.aspnetcore.app.runtime.osx-x64.8.0.8.nupkg.sha512",
+    "/Users/seldonsauttoramirez/.nuget/packages/microsoft.netcore.app.host.osx-x64/8.0.8/microsoft.netcore.app.host.osx-x64.8.0.8.nupkg.sha512",
+    "/Users/seldonsauttoramirez/.nuget/packages/microsoft.netcore.app.runtime.osx-x64/8.0.8/microsoft.netcore.app.runtime.osx-x64.8.0.8.nupkg.sha512"
   ],
   "logs": []
 }

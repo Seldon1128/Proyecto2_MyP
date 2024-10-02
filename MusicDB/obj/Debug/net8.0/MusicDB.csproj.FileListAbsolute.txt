@@ -13,3 +13,4 @@
 /Users/seldonsauttoramirez/Desktop/Proyecto2_MyP/MusicDB/obj/Debug/net8.0/MusicDB.pdb
 /Users/seldonsauttoramirez/Desktop/Proyecto2_MyP/MusicDB/obj/Debug/net8.0/MusicDB.genruntimeconfig.cache
 /Users/seldonsauttoramirez/Desktop/Proyecto2_MyP/MusicDB/obj/Debug/net8.0/ref/MusicDB.dll
+/Users/seldonsauttoramirez/Desktop/Proyecto2_MyP/MusicDB/obj/Debug/net8.0/MusicDB.csproj.AssemblyReference.cache

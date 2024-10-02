@@ -2,7 +2,7 @@ using Gtk;
 using System;
 
 public class MainWindow : Window
-{
+{ 
     public MainWindow() : base("Base de Datos Musical")
     {
         // Configurar el tamaño de la ventana
@@ -37,8 +37,16 @@ public class MainWindow : Window
     }
 
     // Acción del botón de inicio
-    void OnStartButtonClicked(object? sender, EventArgs args)
+    void OnStartButtonClicked(object sender, EventArgs args)
     {
         Console.WriteLine("Botón de Inicio presionado");
     }
+    /*
+    public static void Main()
+    {
+        Application.Init();
+        MainWindow win = new MainWindow();
+        win.Show();
+        Application.Run();
+    }*/
 }

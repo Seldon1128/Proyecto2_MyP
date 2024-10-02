@@ -3,9 +3,11 @@ using Gtk;
 
 
 class Program
-{
+{  
     static void Main()
     {
+        // Application.Init();
+
         Console.WriteLine("Iniciando el programa");
 
         // Ruta a la base de datos
@@ -41,9 +43,8 @@ class Program
 
         Console.WriteLine("Proceso completado.");
 
-        Application.Init();
-        MainWindow win = new MainWindow();
-        win.Show();
-        Application.Run();
+        //MainWindow win = new MainWindow();
+        //win.Show();
+        //Application.Run();
     }
 }
