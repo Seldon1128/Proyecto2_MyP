@@ -85,6 +85,10 @@ public class MainWindow : Window
                 ExtraerMusica extraerMusicaWindow = new ExtraerMusica();
                 extraerMusicaWindow.ShowAll();
                 this.Hide();
+            } else if (title == "Búsqueda"){
+                Busqueda busquedaWindow = new Busqueda();
+                busquedaWindow.ShowAll();
+                this.Hide();
             }
         };
 
