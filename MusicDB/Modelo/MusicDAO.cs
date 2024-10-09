@@ -145,6 +145,261 @@ public class MusicDAO
         }
     }
 
+    public List<Song> GetAllSongs()
+    {
+        List<Song> canciones = new List<Song>();
+        connection.Open();
+
+        string selectQuery = @"SELECT r.title, p.name as performer, r.year, r.id_rola, r.genre 
+                            FROM rolas r
+                            JOIN performers p ON r.id_performer = p.id_performer";
+
+        using (var selectCmd = new SqliteCommand(selectQuery, connection))
+        {
+            using (var reader = selectCmd.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    Song song = new Song
+                    {
+                        Title = reader["title"].ToString(),
+                        PerformerName = reader["performer"].ToString(),
+                        Year = Convert.ToInt32(reader["year"]),
+                        IdRola = Convert.ToInt32(reader["id_rola"]),
+                        Genre = reader["genre"].ToString() 
+                    };
+                    canciones.Add(song);
+                }
+            }
+        }
+
+        return canciones;
+    }
+
+    public List<Song> SearchSongs(string searchText, string searchBy)
+    {
+        List<Song> canciones = new List<Song>();
+        connection.Open();
+
+        // Definir la consulta SQL dependiendo de lo que se quiera buscar
+        string selectQuery = "";
+
+        if (searchBy == "title")
+        {
+            selectQuery = @"SELECT r.title, p.name as performer, r.year, r.id_rola, r.genre 
+                            FROM rolas r
+                            JOIN performers p ON r.id_performer = p.id_performer
+                            WHERE r.title LIKE @searchText";
+        }
+        else if (searchBy == "performer")
+        {
+            selectQuery = @"SELECT r.title, p.name as performer, r.year, r.id_rola, r.genre 
+                            FROM rolas r
+                            JOIN performers p ON r.id_performer = p.id_performer
+                            WHERE p.name LIKE @searchText";
+        }
+        else if (searchBy == "album")
+        {
+            selectQuery = @"SELECT r.title, p.name as performer, r.year, r.id_rola, r.genre 
+                            FROM rolas r
+                            JOIN performers p ON r.id_performer = p.id_performer
+                            JOIN albums a ON r.id_album = a.id_album
+                            WHERE a.name LIKE @searchText";
+        }
+
+        using (var selectCmd = new SqliteCommand(selectQuery, connection))
+        {
+            selectCmd.Parameters.AddWithValue("@searchText", "%" + searchText + "%"); // Agregar comodines para buscar coincidencias parciales
+
+            using (var reader = selectCmd.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    Song song = new Song
+                    {
+                        Title = reader["title"].ToString(),
+                        PerformerName = reader["performer"].ToString(),
+                        Year = Convert.ToInt32(reader["year"]),
+                        IdRola = Convert.ToInt32(reader["id_rola"]),
+                        Genre = reader["genre"].ToString() 
+                    };
+                    canciones.Add(song);
+                }
+            }
+        }
+    
+        return canciones;
+    }
+
+    public int AddPersonToGroup(string personName, string groupName)
+    {
+        // Abrir la conexión dentro de un bloque using
+        using (var connection = this.connection)
+        {
+            connection.Open(); // Asegurarte de abrir la conexión antes de las operaciones
+
+            try
+            {
+                // Verificar si el grupo existe
+                string checkGroupQuery = @"SELECT COUNT(*) FROM groups WHERE name = @groupName";
+                using (var checkGroupCmd = new SqliteCommand(checkGroupQuery, connection))
+                {
+                    checkGroupCmd.Parameters.AddWithValue("@groupName", groupName);
+                    int groupExists = Convert.ToInt32(checkGroupCmd.ExecuteScalar());
+
+                    if (groupExists == 0)
+                    {
+                        return 1; // El grupo no existe
+                    }
+                }
+
+                // Verificar si la persona ya está en el grupo
+                string checkPersonInGroupQuery = @"
+                    SELECT COUNT(*) FROM in_group ig
+                    JOIN persons p ON ig.id_person = p.id_person
+                    JOIN groups g ON ig.id_group = g.id_group
+                    WHERE p.stage_name = @personName AND g.name = @groupName";
+            
+                using (var checkPersonInGroupCmd = new SqliteCommand(checkPersonInGroupQuery, connection))
+                {
+                    checkPersonInGroupCmd.Parameters.AddWithValue("@personName", personName);
+                    checkPersonInGroupCmd.Parameters.AddWithValue("@groupName", groupName);
+                    int personInGroupExists = Convert.ToInt32(checkPersonInGroupCmd.ExecuteScalar());
+
+                    if (personInGroupExists > 0)
+                    {
+                        return 4; // La persona ya está en el grupo
+                    }
+                }
+
+                // Verificar si la persona existe
+                string checkPersonQuery = @"SELECT id_person FROM persons WHERE stage_name = @personName";
+                int personId = -1;
+                using (var checkPersonCmd = new SqliteCommand(checkPersonQuery, connection))
+                {
+                    checkPersonCmd.Parameters.AddWithValue("@personName", personName);
+                    var result = checkPersonCmd.ExecuteScalar();
+                    if (result != null)
+                    {
+                        personId = Convert.ToInt32(result);
+                    }
+                }
+
+                // Si la persona no existe, insertarla
+                if (personId == -1)
+                {
+                    string insertPersonQuery = @"INSERT INTO persons (stage_name) VALUES (@personName); SELECT last_insert_rowid();";
+                    using (var insertPersonCmd = new SqliteCommand(insertPersonQuery, connection))
+                    {
+                        insertPersonCmd.Parameters.AddWithValue("@personName", personName);
+                        personId = Convert.ToInt32(insertPersonCmd.ExecuteScalar());
+                    }
+                }
+
+                // Agregar la persona al grupo
+                string insertPersonInGroupQuery = @"
+                    INSERT INTO in_group (id_person, id_group)
+                    SELECT @personId, id_group FROM groups WHERE name = @groupName";
+                using (var insertPersonInGroupCmd = new SqliteCommand(insertPersonInGroupQuery, connection))
+                {
+                    insertPersonInGroupCmd.Parameters.AddWithValue("@personId", personId);
+                    insertPersonInGroupCmd.Parameters.AddWithValue("@groupName", groupName);
+                    insertPersonInGroupCmd.ExecuteNonQuery();
+                }
+
+                return 2; // Persona agregada al grupo con éxito
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
+                return -1; // Error general
+            }
+        } // La conexión se cierra automáticamente aquí
+    }
+
+    public int DefinePerformer(string performerName, string defineOption)
+    {
+        // Abrir conexión a la base de datos
+        using (var connection = this.connection)
+        {
+            connection.Open();
+        
+            // Verificar si el intérprete existe en la tabla performers
+            string checkPerformerQuery = @"SELECT id_performer FROM performers WHERE name = @performerName";
+            int performerId = -1;
+
+            using (var checkPerformerCmd = new SqliteCommand(checkPerformerQuery, connection))
+            {
+                checkPerformerCmd.Parameters.AddWithValue("@performerName", performerName);
+                var result = checkPerformerCmd.ExecuteScalar();
+
+                if (result != null)
+                {
+                    performerId = Convert.ToInt32(result); // Almacena el id_performer
+                }
+                else
+                {
+                    return 3; // Error, intérprete no encontrado
+                }
+            }
+
+            // Determinar el tipo de definición
+            if (defineOption == "1") // Definir como persona
+            {
+                // Verificar si ya está asociado como persona
+                string checkPersonQuery = @"SELECT COUNT(*) FROM persons WHERE stage_name = @performerName";
+                using (var checkPersonCmd = new SqliteCommand(checkPersonQuery, connection))
+                {
+                    checkPersonCmd.Parameters.AddWithValue("@performerName", performerName);
+                    int personExists = Convert.ToInt32(checkPersonCmd.ExecuteScalar());
+
+                    if (personExists > 0)
+                    {
+                        return 1; // Error, ya está definido como persona
+                    }
+                }
+
+                // Insertar en la tabla persons
+                string insertPersonQuery = @"INSERT INTO persons (stage_name) VALUES (@performerName)";
+                using (var insertPersonCmd = new SqliteCommand(insertPersonQuery, connection))
+                {
+                    insertPersonCmd.Parameters.AddWithValue("@performerName", performerName);
+                    insertPersonCmd.ExecuteNonQuery();
+                }
+
+                return 2; // Éxito, se definió como persona
+            }
+            else if (defineOption == "2") // Definir como grupo
+            {
+                // Verificar si ya está asociado como grupo
+                string checkGroupQuery = @"SELECT COUNT(*) FROM groups WHERE name = @performerName";
+                using (var checkGroupCmd = new SqliteCommand(checkGroupQuery, connection))
+                {
+                    checkGroupCmd.Parameters.AddWithValue("@performerName", performerName);
+                    int groupExists = Convert.ToInt32(checkGroupCmd.ExecuteScalar());
+
+                    if (groupExists > 0)
+                    {
+                        return 1; // Error, ya está definido como grupo
+                    }
+                }
+
+                // Insertar en la tabla groups
+                string insertGroupQuery = @"INSERT INTO groups (name) VALUES (@performerName)";
+                using (var insertGroupCmd = new SqliteCommand(insertGroupQuery, connection))
+                {
+                    insertGroupCmd.Parameters.AddWithValue("@performerName", performerName);
+                    insertGroupCmd.ExecuteNonQuery();
+                }
+
+                return 2; // Éxito, se definió como grupo
+            }
+
+            return 3; // Error, opción no válida
+        }
+    }
+
+
 
 
 }
