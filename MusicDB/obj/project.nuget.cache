@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "josUOc7Hv8c=",
+  "dgSpecHash": "IMinDbTviEA=",
   "success": true,
   "projectFilePath": "/Users/seldonsauttoramirez/Desktop/Proyecto2_MyP/MusicDB/MusicDB.csproj",
   "expectedPackageFiles": [
@@ -18,10 +18,7 @@
     "/Users/seldonsauttoramirez/.nuget/packages/sqlitepclraw.lib.e_sqlite3/2.1.6/sqlitepclraw.lib.e_sqlite3.2.1.6.nupkg.sha512",
     "/Users/seldonsauttoramirez/.nuget/packages/sqlitepclraw.provider.e_sqlite3/2.1.6/sqlitepclraw.provider.e_sqlite3.2.1.6.nupkg.sha512",
     "/Users/seldonsauttoramirez/.nuget/packages/system.memory/4.5.3/system.memory.4.5.3.nupkg.sha512",
-    "/Users/seldonsauttoramirez/.nuget/packages/taglibsharp/2.2.0/taglibsharp.2.2.0.nupkg.sha512",
-    "/Users/seldonsauttoramirez/.nuget/packages/microsoft.aspnetcore.app.runtime.osx-x64/8.0.8/microsoft.aspnetcore.app.runtime.osx-x64.8.0.8.nupkg.sha512",
-    "/Users/seldonsauttoramirez/.nuget/packages/microsoft.netcore.app.host.osx-x64/8.0.8/microsoft.netcore.app.host.osx-x64.8.0.8.nupkg.sha512",
-    "/Users/seldonsauttoramirez/.nuget/packages/microsoft.netcore.app.runtime.osx-x64/8.0.8/microsoft.netcore.app.runtime.osx-x64.8.0.8.nupkg.sha512"
+    "/Users/seldonsauttoramirez/.nuget/packages/taglibsharp/2.2.0/taglibsharp.2.2.0.nupkg.sha512"
   ],
   "logs": []
 }

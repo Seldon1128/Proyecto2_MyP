@@ -1,9 +1,12 @@
 using System;
 using System.IO;
 using Gtk;
+using MusicDB.Modelo;
 
 class Program
 {
+    private static MusicDAO musicDAO;
+
     static void Main()
     {
         // Ruta a la base de datos
@@ -12,8 +15,8 @@ class Program
         // Crear el DatabaseManager y las tablas
         DatabaseManager dbManager = new DatabaseManager(databasePath);
 
-        // Crear el DAO y pasarle la conexión
-        MusicDAO musicDAO = new MusicDAO(dbManager.GetConnection());
+        // Inicializar el DAO y pasarle la conexión
+        musicDAO = new MusicDAO(dbManager.GetConnection());
 
         // Directorio donde se encuentran los MP3
         string musicDirectory = "/Users/seldonsauttoramirez/Documents/PyM/Canciones mama"; // Verifica esta línea
@@ -158,7 +161,18 @@ class Program
             }
         }
 
+        // Iniciar la aplicación de GTK
+        Application.Init();
+        MainWindow mainWindow = new MainWindow();  // Pasar MusicDAO a la ventana principal
+        mainWindow.Show();
+        Application.Run();
+
         // Cerrar la conexión a la base de datos
         dbManager.CloseConnection();
+    }
+
+    public static List<Song> Directorio(){
+        List<Song> canciones = musicDAO.GetAllSongs();  // Asegúrate de usar 'Song' y no 'Songs'
+        return canciones;
     }
 }

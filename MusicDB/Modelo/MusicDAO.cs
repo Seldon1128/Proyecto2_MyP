@@ -1,5 +1,6 @@
 using System;
 using Microsoft.Data.Sqlite;
+using MusicDB.Modelo;
 
 public class MusicDAO
 {
@@ -150,9 +151,11 @@ public class MusicDAO
         List<Song> canciones = new List<Song>();
         connection.Open();
 
-        string selectQuery = @"SELECT r.title, p.name as performer, r.year, r.id_rola, r.genre 
+        string selectQuery = @"SELECT r.title, p.name as performer, r.year, r.id_rola, r.genre, a.name as album 
                             FROM rolas r
-                            JOIN performers p ON r.id_performer = p.id_performer";
+                            JOIN performers p ON r.id_performer = p.id_performer
+                            LEFT JOIN albums a ON r.id_album = a.id_album";
+
 
         using (var selectCmd = new SqliteCommand(selectQuery, connection))
         {
@@ -166,7 +169,8 @@ public class MusicDAO
                         PerformerName = reader["performer"].ToString(),
                         Year = Convert.ToInt32(reader["year"]),
                         IdRola = Convert.ToInt32(reader["id_rola"]),
-                        Genre = reader["genre"].ToString() 
+                        Genre = reader["genre"].ToString(), 
+                        AlbumName = reader["album"]?.ToString()
                     };
                     canciones.Add(song);
                 }
@@ -186,21 +190,23 @@ public class MusicDAO
 
         if (searchBy == "title")
         {
-            selectQuery = @"SELECT r.title, p.name as performer, r.year, r.id_rola, r.genre 
+            selectQuery = @"SELECT r.title, p.name as performer, r.year, r.id_rola, r.genre, a.name as album
                             FROM rolas r
                             JOIN performers p ON r.id_performer = p.id_performer
+                            LEFT JOIN albums a ON r.id_album = a.id_album
                             WHERE r.title LIKE @searchText";
         }
         else if (searchBy == "performer")
         {
-            selectQuery = @"SELECT r.title, p.name as performer, r.year, r.id_rola, r.genre 
+            selectQuery = @"SELECT r.title, p.name as performer, r.year, r.id_rola, r.genre, a.name as album 
                             FROM rolas r
                             JOIN performers p ON r.id_performer = p.id_performer
+                            LEFT JOIN albums a ON r.id_album = a.id_album
                             WHERE p.name LIKE @searchText";
         }
         else if (searchBy == "album")
         {
-            selectQuery = @"SELECT r.title, p.name as performer, r.year, r.id_rola, r.genre 
+            selectQuery = @"SELECT r.title, p.name as performer, r.year, r.id_rola, r.genre, a.name as album
                             FROM rolas r
                             JOIN performers p ON r.id_performer = p.id_performer
                             JOIN albums a ON r.id_album = a.id_album
@@ -221,7 +227,8 @@ public class MusicDAO
                         PerformerName = reader["performer"].ToString(),
                         Year = Convert.ToInt32(reader["year"]),
                         IdRola = Convert.ToInt32(reader["id_rola"]),
-                        Genre = reader["genre"].ToString() 
+                        Genre = reader["genre"].ToString(), 
+                        AlbumName = reader["album"]?.ToString()
                     };
                     canciones.Add(song);
                 }
