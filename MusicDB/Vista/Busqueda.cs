@@ -1,5 +1,6 @@
 using System;
 using Gtk;
+using MusicDB.Modelo;
 
 public class Busqueda : Window
 {
@@ -72,17 +73,95 @@ public class Busqueda : Window
     // Métodos vacíos para cada botón
     private void OnContinueSearchTitleButtonClicked(object sender, EventArgs e)
     {
-        // Método inicializado pero sin lógica
+        string input = search.Text;
+        
+        if (!string.IsNullOrEmpty(input))
+        {
+            List<Song> canciones = Program.BuscarCanciones(input,"title");
+            if(canciones.Count() == 0){
+                // mensaje de no encontramos lo que buscas
+                MessageDialog md = new MessageDialog(this, DialogFlags.DestroyWithParent, MessageType.Error, ButtonsType.Ok, "Lo siento, no encontramos algo relacionado a tu busqueda.");
+                md.Run();
+                md.Destroy();
+                // Volver a la página de busqueda después del mensaje de error, eliminando la entrada
+                Busqueda busquedaWindow = new Busqueda();
+                busquedaWindow.ShowAll();
+                this.Hide();
+            } else {
+                Directorio directorioWindow = new Directorio(canciones);
+                directorioWindow.ShowAll();
+                this.Hide();
+            }
+        }
+        else
+        {
+            // Mostrar un mensaje de error si el campo está vacío
+            MessageDialog md = new MessageDialog(this, DialogFlags.DestroyWithParent, MessageType.Error, ButtonsType.Ok, "Por favor, ingresa un título válido.");
+            md.Run();
+            md.Destroy();
+        }
     }
 
     private void OnContinueSearchInterpreteButtonClicked(object sender, EventArgs e)
     {
-        // Método inicializado pero sin lógica
+        string input = search.Text;
+        
+        if (!string.IsNullOrEmpty(input))
+        {
+            List<Song> canciones = Program.BuscarCanciones(input,"performer");
+            if(canciones.Count() == 0){
+                // mensaje de no encontramos lo que buscas
+                MessageDialog md = new MessageDialog(this, DialogFlags.DestroyWithParent, MessageType.Error, ButtonsType.Ok, "Lo siento, no encontramos algo relacionado a tu busqueda.");
+                md.Run();
+                md.Destroy();
+                // Volver a la página de busqueda después del mensaje de error, eliminando la entrada
+                Busqueda busquedaWindow = new Busqueda();
+                busquedaWindow.ShowAll();
+                this.Hide();
+            } else {
+                Directorio directorioWindow = new Directorio(canciones);
+                directorioWindow.ShowAll();
+                this.Hide();
+            }
+        }
+        else
+        {
+            // Mostrar un mensaje de error si el campo está vacío
+            MessageDialog md = new MessageDialog(this, DialogFlags.DestroyWithParent, MessageType.Error, ButtonsType.Ok, "Por favor, ingresa un interprete válido.");
+            md.Run();
+            md.Destroy();
+        }
     }
 
     private void OnContinueSearchAlbumButtonClicked(object sender, EventArgs e)
     {
-        // Método inicializado pero sin lógica
+        string input = search.Text;
+        
+        if (!string.IsNullOrEmpty(input))
+        {
+            List<Song> canciones = Program.BuscarCanciones(input,"album");
+            if(canciones.Count() == 0){
+                // mensaje de no encontramos lo que buscas
+                MessageDialog md = new MessageDialog(this, DialogFlags.DestroyWithParent, MessageType.Error, ButtonsType.Ok, "Lo siento, no encontramos algo relacionado a tu busqueda.");
+                md.Run();
+                md.Destroy();
+                // Volver a la página de busqueda después del mensaje de error, eliminando la entrada
+                Busqueda busquedaWindow = new Busqueda();
+                busquedaWindow.ShowAll();
+                this.Hide();
+            } else {
+                Directorio directorioWindow = new Directorio(canciones);
+                directorioWindow.ShowAll();
+                this.Hide();
+            }
+        }
+        else
+        {
+            // Mostrar un mensaje de error si el campo está vacío
+            MessageDialog md = new MessageDialog(this, DialogFlags.DestroyWithParent, MessageType.Error, ButtonsType.Ok, "Por favor, ingresa un nombre de album válido.");
+            md.Run();
+            md.Destroy();
+        }
     }
 }
 

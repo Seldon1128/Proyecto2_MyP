@@ -61,13 +61,15 @@ public class ExtraerMusica : Window
     {
         // Obtener el texto ingresado en el Entry
         string path = directoryPath.Text;
+        int minadoExitoso; // Variable que muestra si se mino o no el directorio
 
         // Lógica condicional para el botón
         if (!string.IsNullOrEmpty(path))
         {
             // Agregar logica para extraer con modelo y controlador
+            minadoExitoso = Program.minarDirectorio(path);
             // podemos entrar a esta nueva ventana con un booleano y si es cierto o falso mostrar diferentes mensajes
-            MensajeExito mensajeExitoWindow = new MensajeExito();
+            MensajeExito mensajeExitoWindow = new MensajeExito(minadoExitoso);
             mensajeExitoWindow.Show();
             this.Hide(); // Ocultar la ventana de Extraer Música
         }
@@ -82,7 +84,7 @@ public class ExtraerMusica : Window
 
     public class MensajeExito : Window
     {
-        public MensajeExito() : base("DirectorioMinado")
+        public MensajeExito(int tipoMensaje) : base("DirectorioMinado")
         {
             SetDefaultSize(600, 600);
             SetPosition(WindowPosition.Center);
@@ -117,13 +119,24 @@ public class ExtraerMusica : Window
             vbox.PackStart(titleBar, false, false, 5);
 
             // Mensaje de éxito
-            Label successLabel = new Label("¡Directorio extraído con éxito!");
-            successLabel.Halign = Align.Center;
-            vbox.PackStart(successLabel, false, false, 0);
+            if (tipoMensaje==1){
+                Label successLabel = new Label("¡Directorio extraído con éxito!");
+                successLabel.Halign = Align.Center;
+                vbox.PackStart(successLabel, false, false, 0);
+            } else {
+                Label successLabel = new Label("Minado no realizado, directorio no encontrado.");
+                successLabel.Halign = Align.Center;
+                vbox.PackStart(successLabel, false, false, 0);
+            }
 
             // Imagen de palomita
-            Image successImage = new Image("images/check.png"); // Cambia la ruta a la imagen
-            vbox.PackStart(successImage, false, false, 0);
+            if (tipoMensaje == 1){
+                Image successImage = new Image("Vista/images/check.png"); // Cambia la ruta a la imagen
+                vbox.PackStart(successImage, false, false, 0);
+            } else {
+                Image successImage = new Image("Vista/images/error.png"); // Cambia la ruta a la imagen
+                vbox.PackStart(successImage, false, false, 0);
+            }
 
             // Botón para volver a extraer directorio
             Button volverExtraerButton = new Button("Volver a extraer directorio");

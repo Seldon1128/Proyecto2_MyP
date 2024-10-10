@@ -100,16 +100,30 @@ public class Directorio : Window
         yearColumn.PackStart(yearCell, true);
         yearColumn.AddAttribute(yearCell, "text", 2);  // Columna 2
         songTable.AppendColumn(yearColumn);
+
+        // Columna para el Género
+        TreeViewColumn genreColumn = new TreeViewColumn { Title = "Género" };
+        CellRendererText genreCell = new CellRendererText();
+        genreColumn.PackStart(genreCell, true);
+        genreColumn.AddAttribute(genreCell, "text", 3);  // Columna 3
+        songTable.AppendColumn(genreColumn);
+
+        // Columna para el Álbum
+        TreeViewColumn albumColumn = new TreeViewColumn { Title = "Álbum" };
+        CellRendererText albumCell = new CellRendererText();
+        albumColumn.PackStart(albumCell, true);
+        albumColumn.AddAttribute(albumCell, "text", 4);  // Columna 4
+        songTable.AppendColumn(albumColumn);
     }
 
     // Método para poblar la tabla con canciones
     private void PopulateSongTable(List<Song> canciones)
     {
-        ListStore store = new ListStore(typeof(string), typeof(string), typeof(int));
+        ListStore store = new ListStore(typeof(string), typeof(string), typeof(int), typeof(string), typeof(string));
 
         foreach (var cancion in canciones)
         {
-            store.AppendValues(cancion.Title, cancion.PerformerName, cancion.Year);
+            store.AppendValues(cancion.Title, cancion.PerformerName, cancion.Year, cancion.Genre, cancion.AlbumName);
         }
 
         songTable.Model = store;
@@ -128,11 +142,9 @@ public class Directorio : Window
             string titulo = (string)songTable.Model.GetValue(iter, 0);
             string performer = (string)songTable.Model.GetValue(iter, 1);
             int year = (int)songTable.Model.GetValue(iter, 2);
+            string genero = (string)songTable.Model.GetValue(iter, 3);
+            string album = (string)songTable.Model.GetValue(iter, 4);
 
-            // Aquí puedes obtener más detalles si los necesitas, como género o álbum
-            // Esto es solo un ejemplo
-            string genero = "Pop"; // Suponiendo un valor para mostrar
-            string album = "Album Example"; // Suponiendo un valor para mostrar
 
             // Actualizar el label de detalles
             songDetails.Text = $"Título: {titulo}\nIntérprete: {performer}\nAño: {year}\nGénero: {genero}\nÁlbum: {album}";

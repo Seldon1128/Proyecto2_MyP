@@ -172,7 +172,26 @@ class Program
     }
 
     public static List<Song> Directorio(){
-        List<Song> canciones = musicDAO.GetAllSongs();  // Asegúrate de usar 'Song' y no 'Songs'
+        List<Song> canciones = musicDAO.GetAllSongs();  
         return canciones;
     }
+
+    public static int minarDirectorio(string musicDirectory){
+        if (!Directory.Exists(musicDirectory)) {
+            return 0; // El directorio no existe
+        } else {
+            MP3TagExtractor tagExtractor = new MP3TagExtractor();
+            DirectoryMiner miner = new DirectoryMiner(tagExtractor, musicDAO);
+
+            // Recorrer el directorio y procesar los archivos MP3
+            miner.TraverseDirectory(musicDirectory);
+            return 1;
+        }
+    }
+
+    public static List<Song> BuscarCanciones(string searchText, string searchBy){
+        List<Song> canciones = musicDAO.SearchSongs(searchText, searchBy); 
+        return canciones;
+    }
+
 }
