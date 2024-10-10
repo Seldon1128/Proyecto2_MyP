@@ -96,6 +96,10 @@ public class MainWindow : Window
                 Directorio directorioWindow = new Directorio(canciones);
                 directorioWindow.ShowAll();
                 this.Hide();
+            } else if (title == "Editar Información"){
+                EditarInformacion editarInfoWindow = new EditarInformacion();
+                editarInfoWindow.ShowAll();
+                this.Hide();
             }
         };
 

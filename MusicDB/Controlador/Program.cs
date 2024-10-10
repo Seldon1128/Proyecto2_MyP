@@ -177,6 +177,8 @@ class Program
     }
 
     public static int minarDirectorio(string musicDirectory){
+        string databasePath = "musica.db";
+        DatabaseManager dbManager = new DatabaseManager(databasePath); // por si la base de datos fue eliminada
         if (!Directory.Exists(musicDirectory)) {
             return 0; // El directorio no existe
         } else {
@@ -192,6 +194,12 @@ class Program
     public static List<Song> BuscarCanciones(string searchText, string searchBy){
         List<Song> canciones = musicDAO.SearchSongs(searchText, searchBy); 
         return canciones;
+    }
+
+    public static void EliminarBaseDatos(){
+        if (File.Exists("musica.db")){
+            File.Delete("musica.db");
+        }
     }
 
 }
