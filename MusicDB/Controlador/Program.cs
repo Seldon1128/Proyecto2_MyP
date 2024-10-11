@@ -25,7 +25,7 @@ class Program
 
         Console.WriteLine("Bienvenido al programa de gestión de música");
 
-        while (opcion != "8")
+        while (opcion != "9")
         {
         
             Console.WriteLine("Por favor, selecciona una opción:");
@@ -36,7 +36,8 @@ class Program
             Console.WriteLine("5. Definir a un interprete como Persona o Grupo");
             Console.WriteLine("6. Editar la informacion de albumes");
             Console.WriteLine("7. Editar la informacion de rolas");
-            Console.WriteLine("8. Salir");
+            Console.WriteLine("8. Mostrar lista de Performers");
+            Console.WriteLine("9. Salir menú y pasar a GUI");
 
             opcion = Console.ReadLine();
 
@@ -242,6 +243,26 @@ class Program
                     }
                     break;
                 case "8":
+                    // Llamar al método que obtiene la lista de intérpretes
+                    List<Performer> performers = musicDAO.GetPerformers();
+
+                    // Verificar si hay intérpretes en la lista
+                    if (performers.Count > 0)
+                    {
+                        Console.WriteLine("Lista de intérpretes:");
+        
+                        // Imprimir cada intérprete
+                        foreach (var performer in performers)
+                        {
+                            Console.WriteLine("ID: " + performer.Id + " | Nombre: " + performer.Name + " | Tipo: " + (performer.TypeId == 1 ? "Persona" : "Grupo"));
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("No hay intérpretes disponibles.");
+                    }
+                    break;
+                case "9":
                     Console.WriteLine("Saliendo del programa...");
                     break;
 
@@ -260,6 +281,8 @@ class Program
         // Cerrar la conexión a la base de datos
         dbManager.CloseConnection();
     }
+
+    // A continuación hay metodos que llama la GUI para mostrar información de la base de datos musical
 
     public static List<Song> Directorio(){
         List<Song> canciones = musicDAO.GetAllSongs();  
@@ -284,12 +307,6 @@ class Program
     public static List<Song> BuscarCanciones(string searchText, string searchBy){
         List<Song> canciones = musicDAO.SearchSongs(searchText, searchBy); 
         return canciones;
-    }
-
-    public static void EliminarBaseDatos(){
-        if (File.Exists("musica.db")){
-            File.Delete("musica.db");
-        }
     }
 
     public static int DefinirInterprete(string performerName, string defineOption){

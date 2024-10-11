@@ -51,7 +51,7 @@ public class EditarInformacion : Window
         sectionsBox.PackStart(CreateSection("Agregar Persona a Grupo", "Vista/images/nuevaPersona.png"), true, true, 0);
         sectionsBox.PackStart(CreateSection("Editar Informacion Rolas", "Vista/images/editar.png"), true, true, 0);
         sectionsBox.PackStart(CreateSection("Editar Información Album", "Vista/images/editar.png"), true, true, 0);
-        sectionsBox.PackStart(CreateSection("Eliminar Base de Datos", "Vista/images/komodoDragon.png"), true, true, 0);
+        
 
          // Agregar el contenedor para el desplazamiento
         ScrolledWindow scrolledWindow = new ScrolledWindow();
@@ -101,12 +101,7 @@ public class EditarInformacion : Window
                 // abrir ventana
             } else if (title == "Editar Información Album"){
                 // abrir ventana
-            } else if (title == "Eliminar Base de Datos"){
-                // abrir ventana
-                DeleteDB deleteDBWindow = new DeleteDB();
-                deleteDBWindow.ShowAll();
-                this.Hide();
-            }
+            } 
         };
 
         // Agregar el botón al contenedor de la sección

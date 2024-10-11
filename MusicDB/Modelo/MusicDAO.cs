@@ -42,32 +42,37 @@ public class MusicDAO
 
     public int InsertOrGetAlbum(string albumName, string albumPath, int year)
     {
-        connection.Open();
-
-        // Verificar si el álbum ya existe
-        string selectQuery = "SELECT id_album FROM albums WHERE name = @name AND path = @path";
-        using (var selectCmd = new SqliteCommand(selectQuery, connection))
+        using (var connection = this.connection)  // Usar el using para cerrar la conexión al finalizar
         {
-            selectCmd.Parameters.AddWithValue("@name", albumName);
-            selectCmd.Parameters.AddWithValue("@path", albumPath); // Asegúrate de pasar la ruta
-            var result = selectCmd.ExecuteScalar();
-        
-            if (result != null)
+            connection.Open();
+
+            // Verificar si el álbum ya existe con nombre, ruta y año
+            string selectQuery = "SELECT id_album FROM albums WHERE name = @name AND path = @path AND year = @year";
+            using (var selectCmd = new SqliteCommand(selectQuery, connection))
             {
-                return Convert.ToInt32(result); // Retorna el id_album si existe
+                selectCmd.Parameters.AddWithValue("@name", albumName);
+                selectCmd.Parameters.AddWithValue("@path", albumPath);  // Verificación del path
+                selectCmd.Parameters.AddWithValue("@year", year);  // Verificación del año
+                var result = selectCmd.ExecuteScalar();
+        
+                if (result != null)
+                {
+                    return Convert.ToInt32(result); // Si existe, retorna el id_album
+                }
+            }
+
+            // Si no existe, insertar el álbum
+            string insertQuery = "INSERT INTO albums (name, path, year) VALUES (@name, @path, @year); SELECT last_insert_rowid();";
+            using (var insertCmd = new SqliteCommand(insertQuery, connection))
+            {
+                insertCmd.Parameters.AddWithValue("@name", albumName);
+                insertCmd.Parameters.AddWithValue("@path", albumPath); 
+                insertCmd.Parameters.AddWithValue("@year", year);  
+                return Convert.ToInt32(insertCmd.ExecuteScalar()); // Retorna el nuevo id_album
             }
         }
-
-        // Si no existe, insertar el álbum
-        string insertQuery = "INSERT INTO albums (name, path, year) VALUES (@name, @path, @year); SELECT last_insert_rowid();";
-        using (var insertCmd = new SqliteCommand(insertQuery, connection))
-        {
-            insertCmd.Parameters.AddWithValue("@name", albumName);
-            insertCmd.Parameters.AddWithValue("@path", albumPath); // Asegúrate de pasar la ruta aquí también
-            insertCmd.Parameters.AddWithValue("@year", year);
-            return Convert.ToInt32(insertCmd.ExecuteScalar()); // Retorna el nuevo id_album
-        }
     }
+
 
     public void InsertRola(string title, string filePath, int performerId, int albumId, int trackNumber, int year, string genre)
     {
@@ -437,6 +442,9 @@ public class MusicDAO
         return albums;
     }
 
+    /* Este método actualiza el nombre o el año de un álbum. Si el campo no es válido, devuelve un código de error. 
+       Se ejecuta una consulta SQL para actualizar el álbum, y si no se encuentra, retorna otro código de error. */
+
     public int EditAlbum(int albumId, string newText, string fieldToUpdate)
     {
         if (fieldToUpdate != "name" && fieldToUpdate != "year")
@@ -488,6 +496,9 @@ public class MusicDAO
         }
     }
 
+    /* Este método actualiza el campo especificado de una canción. Si se intenta cambiar el intérprete o álbum, se verifica su existencia 
+    en las tablas `performers` o `albums` respectivamente. Si no existen, no se realiza ningún cambio y se retorna un código de error. */
+
     public int EditSong(int songId, string newValue, string fieldToUpdate)
     {
         using (var connection = this.connection)
@@ -524,7 +535,7 @@ public class MusicDAO
                     }
                     else
                     {
-                        return 1; // El intérprete no existe
+                        return 1; // El intérprete nuevo no existe
                     }
                 }
 
@@ -580,6 +591,38 @@ public class MusicDAO
             return -1; // Error en la actualización
         }
     }
+
+    public List<Performer> GetPerformers()
+    {
+        List<Performer> performers = new List<Performer>();
+
+        using (var connection = this.connection)
+        {
+            connection.Open();
+
+            string selectQuery = "SELECT id_performer, id_type, name FROM performers";
+
+            using (var selectCmd = new SqliteCommand(selectQuery, connection))
+            {
+                using (var reader = selectCmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        Performer performer = new Performer
+                        {
+                            Id = Convert.ToInt32(reader["id_performer"]),
+                            TypeId = Convert.ToInt32(reader["id_type"]),
+                            Name = reader["name"].ToString()
+                        };
+                        performers.Add(performer);
+                    }
+                }
+            }
+        }
+
+        return performers;
+    }
+
 
 
 
