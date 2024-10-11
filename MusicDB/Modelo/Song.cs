@@ -26,6 +26,11 @@ namespace MusicDB.Modelo
         // Constructor vacío
         public Song() { }
 
+        public override string ToString()
+        {
+            return $"ID: {IdRola}, Title: {Title}, Performer: {PerformerName}, Year: {Year}, Genre: {Genre}, Album: {AlbumName}";
+        }
+
     }
 }
 

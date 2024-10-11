@@ -92,6 +92,9 @@ public class EditarInformacion : Window
         {
             if (title == "Definir Interprete"){
                 // abrir ventana
+                DefinirInterprete definirInterprete = new DefinirInterprete();
+                definirInterprete.ShowAll();
+                this.Hide();
             } else if (title == "Agregar Persona a Grupo"){
                 // abrir ventana
             } else if (title == "Editar Informacion Rolas"){

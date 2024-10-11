@@ -406,6 +406,184 @@ public class MusicDAO
         }
     }
 
+    public List<Album> GetAlbums()
+    {
+        List<Album> albums = new List<Album>();
+
+        using (var connection = this.connection)
+        {
+            connection.Open();
+
+            string selectQuery = "SELECT id_album, name, year FROM albums";
+
+            using (var selectCmd = new SqliteCommand(selectQuery, connection))
+            {
+                using (var reader = selectCmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        Album album = new Album
+                        {
+                            Id = Convert.ToInt32(reader["id_album"]),
+                            Name = reader["name"].ToString(),
+                            Year = Convert.ToInt32(reader["year"])
+                        };
+                        albums.Add(album);
+                    }
+                }
+            }
+        }
+    
+        return albums;
+    }
+
+    public int EditAlbum(int albumId, string newText, string fieldToUpdate)
+    {
+        if (fieldToUpdate != "name" && fieldToUpdate != "year")
+        {
+            return 3; // Error, campo no válido para actualizar
+        }
+
+        using (var connection = this.connection)
+        {
+            connection.Open();
+
+            try
+            {
+                string updateQuery = "";
+
+                // Verifica qué campo se actualizará
+                if (fieldToUpdate == "name")
+                {
+                    updateQuery = @"UPDATE albums SET name = @newText WHERE id_album = @albumId";
+                }
+                else if (fieldToUpdate == "year")
+                {
+                    updateQuery = @"UPDATE albums SET year = @newText WHERE id_album = @albumId";
+                }
+
+                // Crear y ejecutar el comando
+                using (var updateCmd = new SqliteCommand(updateQuery, connection))
+                {
+                    updateCmd.Parameters.AddWithValue("@newText", newText);
+                    updateCmd.Parameters.AddWithValue("@albumId", albumId);
+
+                    int rowsAffected = updateCmd.ExecuteNonQuery();
+
+                    if (rowsAffected > 0)
+                    {
+                        return 1; // Éxito, álbum actualizado
+                    }
+                    else
+                    {
+                        return 2; // Error, álbum no encontrado
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
+                return -1; // Error general
+            }
+        }
+    }
+
+    public int EditSong(int songId, string newValue, string fieldToUpdate)
+    {
+        using (var connection = this.connection)
+        {
+            connection.Open();
+
+            string updateQuery = "";
+            int performerId = -1;
+            int albumId = -1;
+
+            if (fieldToUpdate == "title")
+            {
+                updateQuery = "UPDATE rolas SET title = @newValue WHERE id_rola = @songId";
+            }
+            else if (fieldToUpdate == "year")
+            {
+                updateQuery = "UPDATE rolas SET year = @newValue WHERE id_rola = @songId";
+            }
+            else if (fieldToUpdate == "genre")
+            {
+                updateQuery = "UPDATE rolas SET genre = @newValue WHERE id_rola = @songId";
+            }
+            else if (fieldToUpdate == "performer")
+            {
+                // Obtener id_performer del nuevo intérprete
+                string getPerformerIdQuery = "SELECT id_performer FROM performers WHERE name = @newValue";
+                using (var getPerformerCmd = new SqliteCommand(getPerformerIdQuery, connection))
+                {
+                    getPerformerCmd.Parameters.AddWithValue("@newValue", newValue);
+                    var result = getPerformerCmd.ExecuteScalar();
+                    if (result != null)
+                    {
+                        performerId = Convert.ToInt32(result);
+                    }
+                    else
+                    {
+                        return 1; // El intérprete no existe
+                    }
+                }
+
+                // Actualizar id_performer
+                updateQuery = "UPDATE rolas SET id_performer = @performerId WHERE id_rola = @songId";
+            }
+            else if (fieldToUpdate == "album")
+            {
+                // Obtener id_album del nuevo álbum
+                string getAlbumIdQuery = "SELECT id_album FROM albums WHERE name = @newValue";
+                using (var getAlbumCmd = new SqliteCommand(getAlbumIdQuery, connection))
+                {
+                    getAlbumCmd.Parameters.AddWithValue("@newValue", newValue);
+                    var result = getAlbumCmd.ExecuteScalar();
+                    if (result != null)
+                    {
+                        albumId = Convert.ToInt32(result);
+                    }
+                    else
+                    {
+                        return 2; // El álbum no existe
+                    }
+                }
+
+                // Actualizar id_album
+                updateQuery = "UPDATE rolas SET id_album = @albumId WHERE id_rola = @songId";
+            }
+
+            if (!string.IsNullOrEmpty(updateQuery))
+            {
+                using (var updateCmd = new SqliteCommand(updateQuery, connection))
+                {
+                    updateCmd.Parameters.AddWithValue("@songId", songId);
+
+                    if (fieldToUpdate == "performer")
+                    {
+                        updateCmd.Parameters.AddWithValue("@performerId", performerId);
+                    }
+                    else if (fieldToUpdate == "album")
+                    {
+                        updateCmd.Parameters.AddWithValue("@albumId", albumId);
+                    }
+                    else
+                    {
+                        updateCmd.Parameters.AddWithValue("@newValue", newValue);
+                    }
+
+                    int rowsAffected = updateCmd.ExecuteNonQuery();
+                    return rowsAffected > 0 ? 0 : -1; // 0 si se actualizó, -1 si no
+                }
+            }
+
+            return -1; // Error en la actualización
+        }
+    }
+
+
+
+
 
 
 

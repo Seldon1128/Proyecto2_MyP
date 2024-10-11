@@ -23,16 +23,20 @@ class Program
 
         string opcion = "";
 
-        while (opcion != "6")
+        Console.WriteLine("Bienvenido al programa de gestión de música");
+
+        while (opcion != "8")
         {
-            Console.WriteLine("Bienvenido al programa de gestión de música");
+        
             Console.WriteLine("Por favor, selecciona una opción:");
             Console.WriteLine("1. Minar Directorio");
             Console.WriteLine("2. Mostrar Canciones");
             Console.WriteLine("3. Buscar Canciones");
             Console.WriteLine("4. Agregar personas a Grupos");
             Console.WriteLine("5. Definir a un interprete como Persona o Grupo");
-            Console.WriteLine("6. Salir");
+            Console.WriteLine("6. Editar la informacion de albumes");
+            Console.WriteLine("7. Editar la informacion de rolas");
+            Console.WriteLine("8. Salir");
 
             opcion = Console.ReadLine();
 
@@ -152,6 +156,92 @@ class Program
                     }
                     break;
                 case "6":
+                    List<Album> albums = musicDAO.GetAlbums();
+
+                    // Mostrar la lista de álbumes
+                    Console.WriteLine("Lista de álbumes disponibles:");
+                    foreach (var album in albums)
+                    {
+                        Console.WriteLine(album); // Llama al método ToString() de la clase Album
+                    }
+
+                    // Solicitar que el usuario elija un álbum por ID
+                    Console.WriteLine("Ingrese el ID del álbum que desea editar:");
+                    int selectedAlbumId = Convert.ToInt32(Console.ReadLine());
+
+                    // Solicitar qué desea editar
+                    Console.WriteLine("¿Qué desea cambiar? (name/year):");
+                    string fieldToUpdate = Console.ReadLine();
+
+                    // Solicitar el nuevo valor
+                    Console.WriteLine($"Ingrese el nuevo valor para {fieldToUpdate}:");
+                    string newText = Console.ReadLine();
+
+                    // Llamar al método EditAlbum para realizar la actualización
+                    int resultAlbumMod = musicDAO.EditAlbum(selectedAlbumId, newText, fieldToUpdate);
+
+                    if (resultAlbumMod == 1)
+                    {
+                        Console.WriteLine("Álbum actualizado con éxito.");
+                    }
+                    else if (resultAlbumMod == 2)
+                    {
+                        Console.WriteLine("Álbum no encontrado.");
+                    }
+                    else if (resultAlbumMod == 3)
+                    {
+                        Console.WriteLine("Campo no válido para actualizar.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Error al actualizar el álbum.");
+                    }
+                    break;
+                case "7":
+                    // Obtener la lista de rolas disponibles
+                    List<Song> rolas = musicDAO.GetAllSongs();
+
+                    // Mostrar la lista de rolas
+                    Console.WriteLine("Lista de rolas disponibles:");
+                    foreach (var rola in rolas)
+                    {
+                        Console.WriteLine(rola); // Llama al método ToString() de la clase Song
+                    }
+
+                    // Solicitar que el usuario elija una rola por ID
+                    Console.WriteLine("Ingrese el ID de la rola que desea editar:");
+                    int selectedRolaId = Convert.ToInt32(Console.ReadLine());
+
+                    // Solicitar qué desea editar
+                    Console.WriteLine("¿Qué desea cambiar? (title/year/genre/performer/album):");
+                    string intentoCambio = Console.ReadLine();
+
+                    // Solicitar el nuevo valor
+                    Console.WriteLine($"Ingrese el nuevo valor para {intentoCambio}:");
+                    string nuevoTexto = Console.ReadLine();
+
+                    // Llamar al método EditSong para realizar la actualización
+                    int resultRolaMod = musicDAO.EditSong(selectedRolaId, nuevoTexto, intentoCambio);
+
+                    // Verificar el resultado de la actualización
+                    if (resultRolaMod == 0)
+                    {
+                        Console.WriteLine("Rola actualizada con éxito.");
+                    }
+                    else if (resultRolaMod == 1)
+                    {
+                        Console.WriteLine("El intérprete no existe.");
+                    }
+                    else if (resultRolaMod == 2)
+                    {
+                        Console.WriteLine("El álbum no existe.");
+                    }
+                    else if (resultRolaMod == -1)
+                    {
+                        Console.WriteLine("Error al actualizar la rola.");
+                    }
+                    break;
+                case "8":
                     Console.WriteLine("Saliendo del programa...");
                     break;
 
@@ -200,6 +290,11 @@ class Program
         if (File.Exists("musica.db")){
             File.Delete("musica.db");
         }
+    }
+
+    public static int DefinirInterprete(string performerName, string defineOption){
+        int resultChange = musicDAO.DefinePerformer(performerName, defineOption);
+        return resultChange;
     }
 
 }
