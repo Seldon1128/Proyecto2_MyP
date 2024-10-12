@@ -46,13 +46,16 @@ public class MusicDAO
         {
             connection.Open();
 
-            // Verificar si el álbum ya existe con nombre, ruta y año
-            string selectQuery = "SELECT id_album FROM albums WHERE name = @name AND path = @path AND year = @year";
+            // Extraer solo el directorio del álbum, sin la canción
+            string albumDirectory = System.IO.Path.GetDirectoryName(albumPath);
+
+            // Verificar si el álbum ya existe con nombre, directorio y año
+            string selectQuery = "SELECT id_album FROM albums WHERE name = @name AND path LIKE @albumDirectory || '%' AND year = @year";
             using (var selectCmd = new SqliteCommand(selectQuery, connection))
             {
                 selectCmd.Parameters.AddWithValue("@name", albumName);
-                selectCmd.Parameters.AddWithValue("@path", albumPath);  // Verificación del path
-                selectCmd.Parameters.AddWithValue("@year", year);  // Verificación del año
+                selectCmd.Parameters.AddWithValue("@albumDirectory", albumDirectory); // Comparar solo el directorio
+                selectCmd.Parameters.AddWithValue("@year", year); // Verificar el año también
                 var result = selectCmd.ExecuteScalar();
         
                 if (result != null)
@@ -66,8 +69,8 @@ public class MusicDAO
             using (var insertCmd = new SqliteCommand(insertQuery, connection))
             {
                 insertCmd.Parameters.AddWithValue("@name", albumName);
-                insertCmd.Parameters.AddWithValue("@path", albumPath); 
-                insertCmd.Parameters.AddWithValue("@year", year);  
+                insertCmd.Parameters.AddWithValue("@path", albumDirectory);  
+                insertCmd.Parameters.AddWithValue("@year", year);  // Inserta también el año
                 return Convert.ToInt32(insertCmd.ExecuteScalar()); // Retorna el nuevo id_album
             }
         }
@@ -245,10 +248,10 @@ public class MusicDAO
 
     public int AddPersonToGroup(string personName, string groupName)
     {
-        // Abrir la conexión dentro de un bloque using
+        // Abrir la conexión 
         using (var connection = this.connection)
         {
-            connection.Open(); // Asegurarte de abrir la conexión antes de las operaciones
+            connection.Open(); 
 
             try
             {

@@ -8,7 +8,7 @@ public class DefinirInterprete : Window
     private Button continueDefinePersonButton;
     private Button continueDefineGroupButton;
 
-    public DefinirInterprete() : base("Pantalla 3 - Búsqueda")
+    public DefinirInterprete() : base("Pantalla 3 - Definir Interprete")
     {
         SetDefaultSize(600, 600);
         SetPosition(WindowPosition.Center);

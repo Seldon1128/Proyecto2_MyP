@@ -23,6 +23,7 @@ class Program
 
         string opcion = "";
 
+        // Programa sin gui opcional correr
         Console.WriteLine("Bienvenido al programa de gestión de música");
 
         while (opcion != "9")
@@ -44,6 +45,7 @@ class Program
             switch (opcion)
             {
                 case "1":
+                    // este minado es hardcodeando la direccion en musicdirectory
                     Console.WriteLine("Iniciando el proceso de minado del directorio...");
 
                     if (!Directory.Exists(musicDirectory))
@@ -312,6 +314,26 @@ class Program
     public static int DefinirInterprete(string performerName, string defineOption){
         int resultChange = musicDAO.DefinePerformer(performerName, defineOption);
         return resultChange;
+    }
+
+    public static int AgregarPersonaAGrupo(string personName, string groupName){
+        int resultAgregarPersonaAGrupo = musicDAO.AddPersonToGroup(personName, groupName);
+        return resultAgregarPersonaAGrupo;
+    }
+
+    public static List<Album> AlbumsList(){
+        List<Album> albums = musicDAO.GetAlbums();
+        return albums;
+    }
+
+    public static int EditarAlbum(int selectedAlbumId, string newText, string fieldToUpdate){
+        int resultAlbumModEdit = musicDAO.EditAlbum(selectedAlbumId, newText, fieldToUpdate);
+        return resultAlbumModEdit;
+    }
+
+    public static int EditarRola(int selectedRolaId, string nuevoTexto, string intentoCambio){
+        int resultRolaMod = musicDAO.EditSong(selectedRolaId, nuevoTexto, intentoCambio);
+        return resultRolaMod;
     }
 
 }

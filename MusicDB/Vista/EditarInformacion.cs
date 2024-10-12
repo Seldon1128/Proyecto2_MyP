@@ -97,10 +97,20 @@ public class EditarInformacion : Window
                 this.Hide();
             } else if (title == "Agregar Persona a Grupo"){
                 // abrir ventana
+                AgregarPersonaAGrupo agregarPersonaWindow = new AgregarPersonaAGrupo();
+                agregarPersonaWindow.ShowAll();
+                this.Hide();
             } else if (title == "Editar Informacion Rolas"){
                 // abrir ventana
+                EditarRola editarRolaWindow = new EditarRola();
+                editarRolaWindow.ShowAll();
+                this.Hide();
             } else if (title == "Editar Información Album"){
                 // abrir ventana
+                List<Album> albumes = Program.AlbumsList();
+                EditAlbumScreen editAlbumWindow = new EditAlbumScreen(albumes);
+                editAlbumWindow.ShowAll();
+                this.Hide();
             } 
         };
 
